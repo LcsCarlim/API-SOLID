@@ -1,0 +1,177 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "RentalX SOLID",
+        "description": "This is an API Rent",
+        "version": "1.0.0",
+        "contact": {
+            "email": "lucas.carlim@zuvia.com.br"
+        }
+    },
+
+    "paths": {
+        "/users": {
+            "post": {
+                "summary": "Create a user",
+                "description": "Create a new user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "Lucas Carlim",
+                                    "email": "lucas.carlim@zuvia.com.br"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário criado com sucesso",
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "description": "Nome do usuário"
+                            },
+                            "email": {
+                              "type": "string",
+                              "description": "E-mail do usuário"
+                            },
+                            "admin": {
+                              "type": "boolean",
+                              "description": "Indica se o usuário é administrador"
+                            },
+                            "created_at": {
+                                "type": "date"
+                            }
+                          }
+                        }
+                      },
+                    "400": {
+                        "description": "User already exists!"
+                    }
+                }
+            },
+            "get": {
+                "tag": ["user_id"],
+                "summary": "List all users",
+                "description": "Returns a list of all users",
+                "parameters": [
+                    {
+                      "name": "user_id",
+                      "in": "header",
+                      "description": "User ID",
+                      "required": true,
+                      "type": "string"
+                    }
+                  ],
+                "responses": {
+                    "201": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "User not found!"
+                    },    
+                        "schema": {
+                            "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                             "example": "1"
+                                            }
+                                        }
+                                    }
+                                
+                            
+                        }
+                    }
+                }
+            },
+            "/users/{user_id}": {
+                "get": {
+                    "parameters": [
+                        {
+                          "in": "path",
+                          "name": "user_id",
+                          "description": "ID do usuário a ser atualizado",
+                          "required": true,
+                          "type": "string"
+                        }
+                    ],
+                    "summary": "Return a specific user",
+                    "description": "Return a spefici user",
+                    "responses": {
+                        "201": {
+                            "description": "Success",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "user_id": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/users/{user_id}/admin": {
+                "patch": {
+                    "parameters": [
+                        {
+                          "in": "path",
+                          "name": "user_id",
+                          "description": "ID do usuário a ser atualizado",
+                          "required": true,
+                          "type": "string"
+                        }
+                    ],
+                    "summary": "Make admin a user",
+                    "description": "Make admin a user",
+                    "responses": {
+                        "201": {
+                            "description": "Success",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "user_id": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+    
+                }
+            }
+        }
+    }
+                                    
